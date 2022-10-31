@@ -88,7 +88,7 @@ def send_mail(
 
 
 def send_mass_mail(
-    datatuple, fail_silently=False, auth_user=None, auth_password=None, connection=None
+    datatuple, fail_silently=False, auth_user=None, auth_password=None, connection=None, html = None
 ):
     """
     Given a datatuple of (subject, message, from_email, recipient_list), send
@@ -107,6 +107,8 @@ def send_mass_mail(
         password=auth_password,
         fail_silently=fail_silently,
     )
+    if html:
+        EmailMessage.content_subtype = 'html'
     messages = [
         EmailMessage(subject, message, sender, recipient, connection=connection)
         for subject, message, sender, recipient in datatuple
